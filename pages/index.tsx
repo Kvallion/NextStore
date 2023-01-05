@@ -1,9 +1,10 @@
-import styles from "../styles/Home.module.css";
-import { InferGetStaticPropsType } from "next";
+import { getConfig } from "@framework/api/config";
 import getAllProducts from "@framework/product/getAllProducts";
+import { InferGetStaticPropsType } from "next";
 
 export async function getStaticProps() {
-    const products = await getAllProducts();
+    const config = getConfig();
+    const products = await getAllProducts(config);
     return {
         props: {
             products: products,
@@ -14,7 +15,7 @@ export async function getStaticProps() {
 
 export default function Home({ products }: InferGetStaticPropsType<typeof getStaticProps>) {
     return (
-        <div className={styles.container}>
+        <div>
             {/* {products.map((prod) => (
                 <div key={prod}>{prod}</div>
             ))} */}
